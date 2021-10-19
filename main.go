@@ -19,7 +19,7 @@ func main() {
 	fmt.Print("Enter City name to get Weather information: ")
 	scanner.Scan()
 	input := scanner.Text()
-	BaseURI := `http://api.openweathermap.org/data/2.5/weather?q=` + input + `&units=metric&appid=0ad3305bb5a406f138f141381b488ff3`
+	BaseURI := `http://api.openweathermap.org/data/2.5/weather?q=` + input + `&units=metric&appid=`
 	res, err := http.Get(BaseURI)
 
 	if err != nil {
