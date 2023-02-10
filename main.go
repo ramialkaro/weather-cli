@@ -4,7 +4,9 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"github.com/joho/godotenv"
 	"io/ioutil"
+	"log"
 	"math"
 	"net/http"
 	"os"
@@ -12,14 +14,19 @@ import (
 	"time"
 )
 
-
-
 func main() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("Error loading .env file...")
+		log.Println("Using default configuration")
+	}
+
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Enter City name to get Weather information: ")
 	scanner.Scan()
 	input := scanner.Text()
-	BaseURI := `http://api.openweathermap.org/data/2.5/weather?q=` + input + `&units=metric&appid=`
+
+	APIKey := os.Getenv("APIKey")
+	BaseURI := `http://api.openweathermap.org/data/2.5/weather?q=` + input + `&units=metric&appid=` + APIKey
 	res, err := http.Get(BaseURI)
 
 	if err != nil {
